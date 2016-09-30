@@ -1,14 +1,19 @@
-var VideoPlayer = (params) => (
-  <div className="video-player">
-    <div className="embed-responsive embed-responsive-16by9">
-      <iframe className="embed-responsive-item" src={`https://www.youtube.com/embed/${params.video.id.videoId}`} allowFullScreen></iframe>
+var VideoPlayer = (params) => {
+  let videoId = params.video.id ? params.video.id.videoId : '';
+  let title = params.video.snippet ? params.video.snippet.title : '';
+  let description = params.video.snippet ? params.video.snippet.description : '';
+  return (
+    <div className="video-player">
+      <div className="embed-responsive embed-responsive-16by9">
+        <iframe className="embed-responsive-item" src={`https://www.youtube.com/embed/${videoId}`} allowFullScreen></iframe>
+      </div>
+      <div className="video-player-details">
+        <h3>{title}</h3>
+        <div>{description}</div>
+      </div>
     </div>
-    <div className="video-player-details">
-      <h3>{params.video.snippet.title}</h3>
-      <div>{params.video.snippet.description}</div>
-    </div>
-  </div>
-);
+  );
+};
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated

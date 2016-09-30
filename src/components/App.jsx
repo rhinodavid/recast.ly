@@ -1,11 +1,19 @@
 class App extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      videos: exampleVideoData,
-      currentVideo: exampleVideoData[0]
+      videos: [],
+      currentVideo: {}
     };
+  }
+
+  componentDidMount() {
+    this.props.searchYouTube({
+      key: window.YOUTUBE_API_KEY,
+      query: '',
+      max: 5
+    }, (videos) => this.setState({videos}));
   }
 
   render() {
