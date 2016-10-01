@@ -3,7 +3,7 @@ var VideoListEntry = require('./VideoListEntry');
 var VideoList = (props) => (
   <div className="video-list media">
     {props.videos.map(video => (
-        <VideoListEntry video={video} handleClick={props.handleClick} key={video.id.videoId}/>
+        <VideoListEntry video={video} key={video.id.videoId}/>
     ))}
   </div>
 );

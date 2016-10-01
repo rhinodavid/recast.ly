@@ -1,6 +1,4 @@
 var VideoPlayer = (props) => {
-  console.log('VideoPlayer props', props);
-  debugger;
   let videoId = props.video.id ? props.video.id.videoId : '';
   let title = props.video.snippet ? props.video.snippet.title : '';
   let description = props.video.snippet ? props.video.snippet.description : '';

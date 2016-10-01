@@ -16,11 +16,42 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    let selectedVideoId = this.props.params.videoId;
     this.searchYouTube('');
+
+    if (selectedVideoId) {
+      let localVideo = this.getCachedVideo(selectedVideoId);
+
+      if (localVideo) {
+        this.setState({currentVideo: localVideo});
+      } else {
+        this.getYouTubeVideo(selectedVideoId, (video) => {
+          this.setState({currentVideo: video});
+        });
+      }
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    let selectedVideoId = nextProps.params.videoId;
+    let localVideo = this.getCachedVideo(selectedVideoId);
+
+    if (localVideo) {
+      this.setState({currentVideo: localVideo});
+    } else {
+      this.getYouTubeVideo(selectedVideoId, (video) => {
+        this.setState({currentVideo: video});
+      });
+    }
+  }
+
+  getCachedVideo(videoId) {
+    return this.state.videos.reduce((selectedVideo, video) => {
+      if (video.id.videoId === videoId) {
+        return video;
+      }
+      return selectedVideo;
+    }, null);
   }
 
   render() {
@@ -35,16 +66,11 @@ class App extends React.Component {
             <VideoPlayer video={this.state.currentVideo}/>
           </div>
           <div className="col-md-4">
-            <VideoList videos={this.state.videos} handleClick={this.handleClick.bind(this)}/>
+            <VideoList videos={this.state.videos}/>
           </div>
         </div>
       </div>
     );
-  }
-
-  handleClick(video) {
-    // reset the current video to the one just clicked
-    this.setState({currentVideo: video});
   }
 
   handleUserInput(searchQuery) {
@@ -57,6 +83,15 @@ class App extends React.Component {
       query: searchQuery,
       max: 5
     }, (videos) => this.setState({videos}));
+  }
+
+  getYouTubeVideo(videoId, callback) {
+    debugger;
+    searchYouTube({
+      key: window.YOUTUBE_API_KEY,
+      id: videoId,
+      max: 1
+    }, (videos) => callback(videos[0]));
   }
 
 }
