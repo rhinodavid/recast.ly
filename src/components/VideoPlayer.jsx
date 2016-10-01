@@ -1,7 +1,7 @@
-var VideoPlayer = (params) => {
-  let videoId = params.video.id ? params.video.id.videoId : '';
-  let title = params.video.snippet ? params.video.snippet.title : '';
-  let description = params.video.snippet ? params.video.snippet.description : '';
+var VideoPlayer = (props) => {
+  let videoId = props.video.id ? props.video.id.videoId : '';
+  let title = props.video.snippet ? props.video.snippet.title : '';
+  let description = props.video.snippet ? props.video.snippet.description : '';
   return (
     <div className="video-player">
       <div className="embed-responsive embed-responsive-16by9">

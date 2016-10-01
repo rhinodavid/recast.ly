@@ -6,20 +6,17 @@ class App extends React.Component {
       videos: [],
       currentVideo: {}
     };
+    this.handleUserInput = _.throttle(this.handleUserInput, 500);
   }
 
   componentDidMount() {
-    this.props.searchYouTube({
-      key: window.YOUTUBE_API_KEY,
-      query: '',
-      max: 5
-    }, (videos) => this.setState({videos}));
+    this.searchYouTube('');
   }
 
   render() {
     return (
       <div>
-        <Nav />
+        <Nav handleUserInput={this.handleUserInput.bind(this)} />
         <div className="col-md-7">
           <VideoPlayer video={this.state.currentVideo}/>
         </div>
@@ -33,6 +30,18 @@ class App extends React.Component {
   handleClick(video) {
     // reset the current video to the one just clicked
     this.setState({currentVideo: video});
+  }
+
+  handleUserInput(searchQuery) {
+    this.searchYouTube(searchQuery);
+  }
+
+  searchYouTube(searchQuery) {
+    this.props.searchYouTube({
+      key: window.YOUTUBE_API_KEY,
+      query: searchQuery,
+      max: 5
+    }, (videos) => this.setState({videos}));
   }
 
 }
