@@ -15,13 +15,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Nav handleUserInput={this.handleUserInput.bind(this)} />
-        <div className="col-md-7">
-          <VideoPlayer video={this.state.currentVideo}/>
+      <div className="container-fluid">
+        <div className="row">
+          <Nav handleUserInput={this.handleUserInput.bind(this)} />
         </div>
-        <div className="col-md-5">
-          <VideoList videos={this.state.videos} handleClick={this.handleClick.bind(this)}/>
+
+        <div className="row">
+          <div className="col-md-8">
+            <VideoPlayer video={this.state.currentVideo}/>
+          </div>
+          <div className="col-md-4">
+            <VideoList videos={this.state.videos} handleClick={this.handleClick.bind(this)}/>
+          </div>
         </div>
       </div>
     );
