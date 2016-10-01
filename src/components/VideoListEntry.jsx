@@ -1,3 +1,5 @@
+var Link = require('react-router').Link;
+
 var VideoListEntry = (props) => {
 
   const handleTitleClick = (e) => props.handleClick(props.video);
@@ -7,7 +9,7 @@ var VideoListEntry = (props) => {
       <img className="media-object" src={props.video.snippet.thumbnails.default.url} alt="" />
     </div>
     <div className="media-body">
-      <div className="video-list-entry-title" onClick={handleTitleClick}>{props.video.snippet.title}</div>
+      <Link to="/avideoId">{props.video.snippet.title}</Link>
       <div className="video-list-entry-detail">{props.video.snippet.description}</div>
     </div>
   </div>);
@@ -22,3 +24,5 @@ VideoListEntry.propTypes = {
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
 module.exports = VideoListEntry;
+
+      // <div className="video-list-entry-title" onClick={handleTitleClick}>{props.video.snippet.title}</div>

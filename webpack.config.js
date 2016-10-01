@@ -13,7 +13,8 @@ var config = {
   output: {
     path: BUILD_DIR,
     filename: 'bundle.[name].js'
-  }
+  },
+  devtool: 'source-map'
 };
 
 module.exports = config;

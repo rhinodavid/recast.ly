@@ -1,6 +1,7 @@
 var Nav = require('./Nav');
 var VideoPlayer = require('./VideoPlayer');
 var VideoList = require('./VideoList');
+var searchYouTube = require('../lib/searchYouTube');
 
 
 class App extends React.Component {
@@ -16,6 +17,10 @@ class App extends React.Component {
 
   componentDidMount() {
     this.searchYouTube('');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
   }
 
   render() {
@@ -47,7 +52,7 @@ class App extends React.Component {
   }
 
   searchYouTube(searchQuery) {
-    this.props.searchYouTube({
+    searchYouTube({
       key: window.YOUTUBE_API_KEY,
       query: searchQuery,
       max: 5
