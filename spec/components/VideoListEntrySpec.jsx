@@ -1,3 +1,5 @@
+var VideoListEntry = require('../../src/components/VideoListEntry');
+var Wrapper = require('./Wrapper');
 describe('VideoListEntry', function() {
   var {
     renderIntoDocument,

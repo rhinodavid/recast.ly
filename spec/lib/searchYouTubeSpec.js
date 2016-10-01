@@ -1,3 +1,5 @@
+var searchYouTube = require('../../src/lib/searchYouTube');
+
 var getURLSearchParams = function(url) {
   return url
     .split('?')[1]

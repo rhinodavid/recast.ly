@@ -21,4 +21,4 @@ var searchYouTube = (options, callback) => {
     .catch(err => console.error(err));
 };
 
-window.searchYouTube = searchYouTube;
+module.exports = searchYouTube;

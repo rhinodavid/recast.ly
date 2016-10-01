@@ -1,3 +1,5 @@
+var VideoPlayer = require('../../src/components/VideoPlayer');
+var Wrapper = require('./Wrapper');
 describe ('VideoPlayer', function() {
   var {
     renderIntoDocument,

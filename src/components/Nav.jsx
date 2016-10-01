@@ -1,3 +1,5 @@
+var Search = require('./Search');
+
 var Nav = (props) => (
   <nav className="navbar">
     <div className="col-md-8">
@@ -8,4 +10,4 @@ var Nav = (props) => (
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
-window.Nav = Nav;
+module.exports = Nav;

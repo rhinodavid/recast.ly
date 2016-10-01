@@ -6,4 +6,4 @@ class Wrapper extends React.Component {
   }
 }
 
-window.Wrapper = Wrapper;
+module.exports = Wrapper;

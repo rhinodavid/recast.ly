@@ -1,3 +1,4 @@
+var App = require('../../src/components/App');
 describe ('Search', function() {
   var {
     Simulate,

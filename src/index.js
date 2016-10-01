@@ -1,4 +1,7 @@
+var App = require('./components/App');
+var searchYouTube = require('./lib/searchYouTube');
+
 ReactDOM.render(
-  <App searchYouTube={window.searchYouTube} />,
+  <App searchYouTube={searchYouTube} />,
   document.getElementById('app')
 );

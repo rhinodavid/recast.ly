@@ -1,3 +1,5 @@
+var VideoList = require('../../src/components/VideoList');
+var VideoListEntry = require('../../src/components/VideoListEntry');
 describe('VideoList', function() {
   var { createRenderer } = React.addons.TestUtils;
 
