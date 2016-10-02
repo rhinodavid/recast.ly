@@ -1,7 +1,16 @@
-var Nav = require('./Nav');
-var VideoPlayer = require('./VideoPlayer');
-var VideoList = require('./VideoList');
-var searchYouTube = require('../lib/searchYouTube');
+const Nav = require('./Nav');
+const VideoPlayer = require('./VideoPlayer');
+const VideoListWrapper = require('./VideoListWrapper');
+const searchYouTube = require('../lib/searchYouTube');
+
+const connect = require('react-redux').connect;
+
+
+///// Redux Actions /////
+
+const updateVideos = (videos) => {
+  return { type: 'UPDATE_VIDEOS', videos };
+};
 
 
 class App extends React.Component {
@@ -9,7 +18,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videos: [],
       currentVideo: {}
     };
     this.handleUserInput = _.throttle(this.handleUserInput, 500);
@@ -19,7 +27,7 @@ class App extends React.Component {
     let selectedVideoId = this.props.params.videoId;
     this.searchYouTube('');
 
-    if (selectedVideoId) {
+    if (selectedVideoId !== undefined) {
       let localVideo = this.getCachedVideo(selectedVideoId);
 
       if (localVideo) {
@@ -32,21 +40,24 @@ class App extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    let selectedVideoId = nextProps.params.videoId;
-    let localVideo = this.getCachedVideo(selectedVideoId);
 
-    if (localVideo) {
-      this.setState({currentVideo: localVideo});
-    } else {
-      this.getYouTubeVideo(selectedVideoId, (video) => {
-        this.setState({currentVideo: video});
-      });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.videoId !== undefined) {
+      let selectedVideoId = nextProps.params.videoId;
+      let localVideo = this.getCachedVideo(selectedVideoId);
+
+      if (localVideo) {
+        this.setState({currentVideo: localVideo});
+      } else {
+        this.getYouTubeVideo(selectedVideoId, (video) => {
+          this.setState({currentVideo: video});
+        });
+      }
     }
   }
 
   getCachedVideo(videoId) {
-    return this.state.videos.reduce((selectedVideo, video) => {
+    return this.props.videos.reduce((selectedVideo, video) => {
       if (video.id.videoId === videoId) {
         return video;
       }
@@ -66,7 +77,7 @@ class App extends React.Component {
             <VideoPlayer video={this.state.currentVideo} />
           </div>
           <div className="col-md-4">
-            <VideoList videos={this.state.videos}/>
+            <VideoListWrapper />
           </div>
         </div>
       </div>
@@ -82,7 +93,7 @@ class App extends React.Component {
       key: window.YOUTUBE_API_KEY,
       query: searchQuery,
       max: 5
-    }, (videos) => this.setState({videos}));
+    }, (videos) => this.props.dispatch(updateVideos(videos)));
   }
 
   getYouTubeVideo(videoId, callback) {
@@ -95,8 +106,13 @@ class App extends React.Component {
 
 }
 
+const mapStateToProps = (state) => {
+  return {
+    videos: state.videos
+  };
+};
 
-
+App = connect(mapStateToProps, null)(App);
 
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
