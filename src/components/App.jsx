@@ -63,7 +63,7 @@ class App extends React.Component {
 
         <div className="row">
           <div className="col-md-8">
-            <VideoPlayer video={this.state.currentVideo}/>
+            <VideoPlayer video={this.state.currentVideo} />
           </div>
           <div className="col-md-4">
             <VideoList videos={this.state.videos}/>
@@ -86,7 +86,6 @@ class App extends React.Component {
   }
 
   getYouTubeVideo(videoId, callback) {
-    debugger;
     searchYouTube({
       key: window.YOUTUBE_API_KEY,
       id: videoId,

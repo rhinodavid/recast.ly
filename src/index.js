@@ -6,15 +6,15 @@ var browserHistory = require('react-router').browserHistory;
 var App = require('./components/App');
 var VideoPlayer = require('./components/VideoPlayer');
 
-// ReactDOM.render(
-//   <App />,
-//   document.getElementById('app')
-// );
+var Provider = require('react-redux').Provider;
+
+var store = require('./lib/store');
+
 
 ReactDOM.render((
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <Route path=":videoId" component={App} />
-    </Route>
-  </Router>
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/(:videoId)" component={App} />
+    </Router>
+  </Provider>
 ), document.getElementById('app'));
