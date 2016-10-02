@@ -1,5 +1,16 @@
 var VideoPlayer = (props) => {
   let videoId = props.video.id ? props.video.id.videoId : '';
+
+  if (props.video.kind === 'youtube#video') {
+    // controlling for the edge case where the data is coming
+    // straight from a youtube search based on videoId
+    //
+    // this occurs when the application loads with no videos in
+    // the store but a videoId specified in the URL
+    
+    videoId = props.video.id;
+  }
+
   let title = props.video.snippet ? props.video.snippet.title : '';
   let description = props.video.snippet ? props.video.snippet.description : '';
   return (

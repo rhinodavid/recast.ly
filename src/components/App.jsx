@@ -24,20 +24,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let selectedVideoId = this.props.params.videoId;
     this.searchYouTube('');
-
-    if (selectedVideoId !== undefined) {
-      let localVideo = this.getCachedVideo(selectedVideoId);
-
-      if (localVideo) {
-        this.setState({currentVideo: localVideo});
-      } else {
-        this.getYouTubeVideo(selectedVideoId, (video) => {
-          this.setState({currentVideo: video});
-        });
-      }
-    }
   }
 
 
@@ -97,6 +84,7 @@ class App extends React.Component {
   }
 
   getYouTubeVideo(videoId, callback) {
+    debugger;
     searchYouTube({
       key: window.YOUTUBE_API_KEY,
       id: videoId,
